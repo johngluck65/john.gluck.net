@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>John Gluck — Developer Advocate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0f0f0e;
+      --ink-mid: #555550;
+      --ink-light: #999990;
+      --paper: #f5f3ee;
+      --paper-warm: #ede9e0;
+      --accent: #c84b20;
+      --accent-hover: #a33a17;
+      --rule: #d4d0c8;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+      --mono: 'DM Mono', 'Courier New', monospace;
+    }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-name {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      padding: 10rem 2.5rem 6rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--ink-mid);
+    }
+
+    .hero-body {
+      max-width: 560px;
+      font-size: 1.125rem;
+      line-height: 1.75;
+      color: var(--ink-mid);
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--paper);
+      background: var(--ink);
+      padding: 0.75rem 1.75rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--accent); }
+
+    .btn-ghost {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* DIVIDER */
+    .rule-section {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 0;
+    }
+
+    /* SECTION LAYOUT */
+    section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 5rem 2.5rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    /* WHAT I DO */
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0;
+    }
+
+    .what-item {
+      padding: 2rem 2rem 2rem 0;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .what-item:nth-child(3n) { border-right: none; }
+    .what-item:nth-last-child(-n+3) { border-bottom: none; }
+
+    .what-num {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--ink-light);
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+    }
+
+    .what-item h3 {
+      font-family: var(--serif);
+      font-size: 1.375rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .what-item p {
+      font-size: 0.9375rem;
+      color: var(--ink-mid);
+      line-height: 1.65;
+    }
+
+    /* WRITING */
+    .writing-list { list-style: none; }
+
+    .writing-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: baseline;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.15s;
+    }
+
+    .writing-item:first-child { border-top: 1px solid var(--rule); }
+    .writing-item:hover .writing-title { color: var(--accent); }
+
+    .writing-meta {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.3rem;
+    }
+
+    .writing-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.3;
+      transition: color 0.15s;
+    }
+
+    .writing-arrow {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      align-self: center;
+      transition: color 0.15s, transform 0.15s;
+    }
+
+    .writing-item:hover .writing-arrow {
+      color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    /* WORK HISTORY */
+    .work-list { list-style: none; }
+
+    .work-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .work-item:first-child { border-top: 1px solid var(--rule); }
+
+    .work-period {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--ink-light);
+      letter-spacing: 0.05em;
+      padding-top: 0.2rem;
+    }
+
+    .work-co {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+
+    .work-role {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      margin-bottom: 0.75rem;
+    }
+
+    .work-desc {
+      font-size: 0.9375rem;
+      color: var(--ink-mid);
+      line-height: 1.65;
+    }
+
+    /* TOOLS */
+    .tools-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tool-tag {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: var(--ink-mid);
+      background: var(--paper-warm);
+      border: 1px solid var(--rule);
+      padding: 0.35rem 0.85rem;
+    }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-blurb {
+      font-size: 1.125rem;
+      color: var(--ink-mid);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    .contact-links { list-style: none; }
+
+    .contact-link-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .contact-link-item:first-child { border-top: 1px solid var(--rule); }
+
+    .contact-link-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+
+    .contact-link-a {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .contact-link-a:hover { color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--ink-light);
+      letter-spacing: 0.05em;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-label { animation: fadeUp 0.6s ease both; }
+    .hero h1 { animation: fadeUp 0.6s 0.1s ease both; }
+    .hero-body { animation: fadeUp 0.6s 0.2s ease both; }
+    .hero-links { animation: fadeUp 0.6s 0.3s ease both; }
+
+    /* RESPONSIVE */
+    @media (max-width: 700px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1rem; }
+      .hero { padding: 7rem 1.25rem 4rem; }
+      section { padding: 3.5rem 1.25rem; }
+      .work-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .what-item { border-right: none; padding-right: 0; }
+      footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-name">John Gluck</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#history">History</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="hero-label">Developer · Writer · San Francisco</p>
+    <h1>Engineering<br />meets <em>the page.</em></h1>
+    <p class="hero-body">
+      I translate complex developer tooling into writing that earns trust —
+      technical enough to be credible, clear enough to drive decisions.
+      Ten years of hands-on quality engineering; now making that experience useful to other engineers.
+    </p>
+    <div class="hero-links">
+      <a href="#writing" class="btn-primary">Read my work</a>
+      <a href="#contact" class="btn-ghost">Get in touch →</a>
+    </div>
+  </div>
+
+  <hr class="rule-section" />
+
+  <!-- WHAT I DO -->
+  <section id="work">
+    <div class="section-header">
+      <span class="section-label">01</span>
+      <h2 class="section-title">What I do</h2>
+    </div>
+    <div class="what-grid">
+      <div class="what-item">
+        <p class="what-num">001</p>
+        <h3>Technical writing</h3>
+        <p>Long-form articles, white papers, and documentation written for engineers — no condescension, no hand-waving, no filler. Topics I've covered: test automation, E2E testing strategy, CI/CD reliability, and developer tooling.</p>
+      </div>
+      <div class="what-item">
+        <p class="what-num">002</p>
+        <h3>Developer documentation</h3>
+        <p>Ownership of developer-facing documentation platforms including architecture, content strategy, and ongoing maintenance. I've rebuilt documentation from unowned wikis into structured, searchable references engineers actually use.</p>
+      </div>
+      <div class="what-item">
+        <p class="what-num">003</p>
+        <h3>Demo engineering</h3>
+        <p>Building and maintaining technical demos that show products in realistic, credible contexts. Bridging the gap between what marketing wants to say and what engineers will actually believe.</p>
+      </div>
+      <div class="what-item">
+        <p class="what-num">004</p>
+        <h3>Content strategy</h3>
+        <p>I've developed and executed content programs that drive organic growth and establish technical credibility — from SEO-structured tutorials to opinionated takes that generate real developer conversation.</p>
+      </div>
+      <div class="what-item">
+        <p class="what-num">005</p>
+        <h3>Community &amp; education</h3>
+        <p>Translating deep product knowledge into talks, workshops, and educational content. I come from the practitioner side and write for that audience — people who will actually run the thing.</p>
+      </div>
+      <div class="what-item">
+        <p class="what-num">006</p>
+        <h3>Content enablement</h3>
+        <p>Most engineering teams have deep expertise and no channel for it. I help developers become publishers — extracting what SMEs know and turning it into credible, audience-ready content. Ghostwriting, interview-driven articles, social content, internal knowledge bases.</p>
+      </div>
+      <div class="what-item">
+        <p class="what-num">007</p>
+        <h3>Engineering background</h3>
+        <p>10+ years across quality engineering and developer enablement teams at companies including Lending Club and Medidata. I've written the tests, managed the pipelines, built the tooling, and felt the pain the products I now write about are trying to solve.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule-section" />
+
+  <!-- WRITING -->
+  <section id="writing">
+    <div class="section-header">
+      <span class="section-label">02</span>
+      <h2 class="section-title">Selected writing</h2>
+    </div>
+
+    <p style="font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem;">QA Wolf</p>
+    <ul class="writing-list">
+      <li>
+        <a class="writing-item" href="https://www.qawolf.com/blog/why-qa-wolf-chose-playwright-over-cypress" target="_blank" rel="noopener">
+          <div>
+            <p class="writing-meta">Technical Article · Most-read piece to date · ~200K LinkedIn impressions</p>
+            <p class="writing-title">Why QA Wolf Chose Playwright Over Cypress</p>
+            <p style="font-size: 0.9rem; color: var(--ink-mid); margin-top: 0.4rem; line-height: 1.6;">Not a framework comparison — a decision narrative grounded in QA Wolf's actual engineering choices. The piece that got me hired.</p>
+          </div>
+          <span class="writing-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="writing-item" href="https://www.qawolf.com/blog/blog-making-sense-of-all-the-ai-powered-qa-tools" target="_blank" rel="noopener">
+          <div>
+            <p class="writing-meta">Technical Article · Industry taxonomy</p>
+            <p class="writing-title">3 Types of AI Testing Tools Compared: Which Is Right for Your Team?</p>
+            <p style="font-size: 0.9rem; color: var(--ink-mid); margin-top: 0.4rem; line-height: 1.6;">Defined the category language — agentic automated, agentic manual, session recorders — that's now being used across the industry. The research was mine; the terms stuck.</p>
+          </div>
+          <span class="writing-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="writing-item" href="https://cdn.prod.website-files.com/6260298eca091b57c9cf188e/69fbbe33c607e555373cd380_Run%20Rules.pdf" target="_blank" rel="noopener">
+          <div>
+            <p class="writing-meta">White Paper · Patent-backed technology</p>
+            <p class="writing-title">Run Rules: A Declarative Coordination Model</p>
+            <p style="font-size: 0.9rem; color: var(--ink-mid); margin-top: 0.4rem; line-height: 1.6;">Technical documentation of QA Wolf's test orchestration technology. I identified the patentable IP, advocated for the patent with legal, and wrote the white paper that explains how it works.</p>
+          </div>
+          <span class="writing-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="writing-item" href="https://www.qawolf.com/blog/ai-ides-are-simply-the-wrong-tool-for-the-qa-job" target="_blank" rel="noopener">
+          <div>
+            <p class="writing-meta">Technical Article · Competitive positioning</p>
+            <p class="writing-title">AI IDEs Are Simply the Wrong Tool for the QA Job</p>
+            <p style="font-size: 0.9rem; color: var(--ink-mid); margin-top: 0.4rem; line-height: 1.6;">Engineering teams keep trying to use Cursor and Claude Code to build E2E systems. There's a predictable six-month cycle until they realize it doesn't work. This piece tries to shorten that.</p>
+          </div>
+          <span class="writing-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="writing-item" href="https://www.qawolf.com/blog/self-healing-test-automation-types" target="_blank" rel="noopener">
+          <div>
+            <p class="writing-meta">Technical Article · High engagement</p>
+            <p class="writing-title">The 6 Types of AI Self-Healing in Test Automation</p>
+            <p style="font-size: 0.9rem; color: var(--ink-mid); margin-top: 0.4rem; line-height: 1.6;">Most vendors treat self-healing as a parlor trick. This piece maps out what it actually means across six distinct failure categories — and why the distinction matters for teams choosing tools.</p>
+          </div>
+          <span class="writing-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="writing-item" href="https://www.qawolf.com/content/guide-to-continuous-deployment" target="_blank" rel="noopener">
+          <div>
+            <p class="writing-meta">Long-form Guide</p>
+            <p class="writing-title">Guide to Continuous Deployment</p>
+            <p style="font-size: 0.9rem; color: var(--ink-mid); margin-top: 0.4rem; line-height: 1.6;">A practitioner's roadmap to safe, sustainable CD — written from 15 years of working on and around continuous deployment initiatives across multiple companies.</p>
+          </div>
+          <span class="writing-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="writing-item" href="https://github.com/qawolf/qaw-cookbook" target="_blank" rel="noopener">
+          <div>
+            <p class="writing-meta">Gated Asset · Public GitHub repo</p>
+            <p class="writing-title">Mastering the Art of E2E Test Infrastructure</p>
+            <p style="font-size: 0.9rem; color: var(--ink-mid); margin-top: 0.4rem; line-height: 1.6;">Written for the teams that insist they can build what QA Wolf built themselves. The article is gated, but the companion cookbook repo is open — because the code makes the argument better than the prose does.</p>
+          </div>
+          <span class="writing-arrow">→</span>
+        </a>
+      </li>
+    </ul>
+
+    <p style="font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-top: 3rem; margin-bottom: 1.25rem;">Personal</p>
+    <ul class="writing-list">
+      <li>
+        <a class="writing-item" href="https://medium.com/@john.gluck/i-hate-the-phrase-test-automation-framework-8ad3572bd23a" target="_blank" rel="noopener">
+          <div>
+            <p class="writing-meta">Medium · Opinion</p>
+            <p class="writing-title">I Hate the Phrase "Test Automation Framework"</p>
+            <p style="font-size: 0.9rem; color: var(--ink-mid); margin-top: 0.4rem; line-height: 1.6;">A doomed rant against language misuse in the testing world. The phrase means nothing and everyone uses it differently. Still bothers me.</p>
+          </div>
+          <span class="writing-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a class="writing-item" href="https://medium.com/@john.gluck/how-a-layoff-jump-started-this-drama-majors-career-in-tech-24ae7694b1e9" target="_blank" rel="noopener">
+          <div>
+            <p class="writing-meta">Medium · Personal essay</p>
+            <p class="writing-title">How a Layoff Jump-Started This Drama Major's Career in Tech</p>
+            <p style="font-size: 0.9rem; color: var(--ink-mid); margin-top: 0.4rem; line-height: 1.6;">How a BA in Drama from SFSU became a 30-year career in software engineering. Funny, mostly true.</p>
+          </div>
+          <span class="writing-arrow">→</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <hr class="rule-section" />
+
+  <!-- WORK HISTORY -->
+  <section id="history">
+    <div class="section-header">
+      <span class="section-label">03</span>
+      <h2 class="section-title">Work history</h2>
+    </div>
+    <ul class="work-list">
+      <li class="work-item">
+        <span class="work-period">2023 – Present</span>
+        <div>
+          <p class="work-co">QA Wolf</p>
+          <p class="work-role">Principal Testing Advocate</p>
+          <p class="work-desc">Technical content, demo engineering, and documentation platform ownership (Mintlify) at a dev-tools SaaS company. 40+ published articles; one breakout piece led directly to hire. Built public-facing recipe library from scratch. Sole owner of the developer documentation strategy and platform.</p>
+        </div>
+      </li>
+      <li class="work-item">
+        <span class="work-period">2019 – 2023</span>
+        <div>
+          <p class="work-co">Lending Club</p>
+          <p class="work-role">Principal Automation Engineer</p>
+          <p class="work-desc">Led test automation strategy and infrastructure at scale. Owned CI/CD quality gates across multiple engineering teams. Hands-on work across Java, Cypress, Selenium, Jenkins, Kubernetes, and AWS.</p>
+        </div>
+      </li>
+      <li class="work-item">
+        <span class="work-period">2016 – 2019</span>
+        <div>
+          <p class="work-co">Medidata Solutions</p>
+          <p class="work-role">Staff Enablement Engineer</p>
+          <p class="work-desc">Quality engineering and enablement at a clinical data SaaS company. Focused on test infrastructure, automation frameworks, and cross-team tooling adoption.</p>
+        </div>
+      </li>
+      <li class="work-item">
+        <span class="work-period">2013 – 2016</span>
+        <div>
+          <p class="work-co">Constant Contact · Zuora</p>
+          <p class="work-role">Senior Quality Engineer</p>
+          <p class="work-desc">Senior QE roles at two SaaS companies across email marketing and subscription billing. Built automation frameworks, led quality initiatives, and deepened expertise in Ruby and Java testing ecosystems.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div style="margin-top: 3.5rem;">
+      <p style="font-family: var(--mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem;">Tools &amp; technologies</p>
+      <div class="tools-grid">
+        <span class="tool-tag">Java</span>
+        <span class="tool-tag">Ruby</span>
+        <span class="tool-tag">JavaScript</span>
+        <span class="tool-tag">Python</span>
+        <span class="tool-tag">Cypress</span>
+        <span class="tool-tag">Selenium</span>
+        <span class="tool-tag">Playwright</span>
+        <span class="tool-tag">AWS</span>
+        <span class="tool-tag">Kubernetes</span>
+        <span class="tool-tag">Terraform</span>
+        <span class="tool-tag">Jenkins</span>
+        <span class="tool-tag">Mintlify</span>
+        <span class="tool-tag">Git</span>
+        <span class="tool-tag">CI/CD</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule-section" />
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header">
+      <span class="section-label">04</span>
+      <h2 class="section-title">Get in touch</h2>
+    </div>
+    <div class="contact-grid">
+      <p class="contact-blurb">
+        I'm interested in Developer Advocate and Developer Relations roles at companies building tools engineers care about.
+        If you're working on something in that space, I'd like to hear from you.
+      </p>
+      <ul class="contact-links">
+        <li class="contact-link-item">
+          <span class="contact-link-label">Email</span>
+          <a class="contact-link-a" href="mailto:john.gluck@gmail.com">john.gluck@gmail.com</a>
+        </li>
+        <li class="contact-link-item">
+          <span class="contact-link-label">LinkedIn</span>
+          <a class="contact-link-a" href="https://linkedin.com/in/johnjgluck" target="_blank" rel="noopener">johnjgluck</a>
+        </li>
+        <li class="contact-link-item">
+          <span class="contact-link-label">Location</span>
+          <span class="contact-link-a" style="cursor: default;">San Francisco, CA</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-copy">© 2026 John Gluck</span>
+    <span class="footer-copy">john.gluck.net</span>
+  </footer>
+
+</body>
+</html>
